@@ -1,0 +1,23 @@
+pipeline {
+    agent any  // Use any available agent
+
+    triggers {
+        scm { // Trigger on SCM (Git) changes
+            source {
+                selectedBranch "develop" // Trigger on pushes to the develop branch
+            }
+        }
+    }
+
+    stages {
+        stage('Pull Code') {
+            steps {
+                git branch: 'develop', // Specify the branch to pull (optional)
+                    // credentialsId: 'your-credentials-id', // Replace with your credential ID (optional)
+                    url: 'https://github.com/nirajgole/assignment_1' // Replace with your Git repository URL (optional)
+                    // Use the above options if you didn't provide them in the SCM configuration
+                sh 'git pull origin develop' // Pull code from the Develop branch
+            }
+        }
+    }
+}
